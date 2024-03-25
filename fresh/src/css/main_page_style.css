@@ -162,7 +162,7 @@
     line-height: 0px;
   }
   .log-in-1-749427-0 {
-    font-size: calc(15 * var(--ratio));
+    font-size: calc(17 * var(--ratio));
     font-family: Roboto;
     font-weight: 400;
   
@@ -170,7 +170,7 @@
     text-transform: none;
   
     line-height: calc(16 * var(--ratio));
-    color: #007affff;
+    color: rgb(173, 64, 62);
   }
   
   .buttonlogin-2-145905-container {
@@ -195,7 +195,7 @@
     z-index: 1;
     transform: rotate(0deg);
     border-radius: 50px 50px 50px 50px;
-    background: linear-gradient(90deg, #36d1dcff 0%, #5b86e5ff 100%);
+    background: linear-gradient(90deg, rgb(173, 64, 62) 0%, rgb(154, 1, 0) 100%);
   }
   .log-in-1-153333 {
     width: 55%;
@@ -209,7 +209,7 @@
     line-height: 0px;
   }
   .log-in-1-153333-0 {
-    font-size: calc(15 * var(--ratio));
+    font-size: calc(16 * var(--ratio));
     font-family: Roboto;
     font-weight: 400;
   

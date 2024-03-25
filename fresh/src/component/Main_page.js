@@ -41,7 +41,7 @@ const Main_page = () => {
         <div className="buttonlogin-2-145905-container pos-abs" id="id-1224138">
           <div className="buttonlogin-1-501120 pos-abs" id="id-1224138">
             <div className="log-in-1-153333 pos-abs" id="id-I1224138_5131">
-              <span className="log-in-1-153333-0">{"Sing Up"}</span>
+              <span className="log-in-1-153333-0">{"Sign Up"}</span>
             </div>
           </div>
         </div>
