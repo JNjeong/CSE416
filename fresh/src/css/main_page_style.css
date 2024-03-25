@@ -66,10 +66,15 @@
     background: #ffffffff;
   }
   .nodeBg-1224163 {
-    width: calc(867.0000168318338 * var(--ratio));
-    height: calc(791.767408626597 * var(--ratio));
+    /* width: calc(867.0000168318338 * var(--ratio));
+    height: calc(791.767408626597 * var(--ratio)); */
+    width: 100%;
+    height: 100%;
     left: calc(0 * var(--ratio));
-    top: calc(-135.38939011696613 * var(--ratio));
+    right: calc(0 * var(--ratio));
+    /* top: calc(-50.38939011696613 * var(--ratio)); */
+    top: calc(0 * var(--ratio));
+
     background-image: var(--image-0);
     background-size: contain;
     background-repeat: no-repeat;
