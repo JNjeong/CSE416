@@ -98,25 +98,25 @@ const Main_page = () => {
         <div className="menu-1-277764-container pos-abs" id="id-1224136">
           <div className="menu-1-797424 pos-abs" id="id-1224136">
             <div className="about-1-51192 pos-abs" id="id-I1224136_8215">
-              <span className="about-1-51192-0">{"About"}</span>
+              <span className="about-1-51192-0">{"Location"}</span>
             </div>
             <div className="features-1-10700 pos-abs" id="id-I1224136_8216">
-              <span className="features-1-10700-0">{"Features"}</span>
+              <span className="features-1-10700-0">{"Weekly Schedule"}</span>
             </div>
             <div className="pricing-1-267960 pos-abs" id="id-I1224136_8217">
-              <span className="pricing-1-267960-0">{"Pricing"}</span>
+              <span className="pricing-1-267960-0">{"My Semester"}</span>
             </div>
             <div className="gallery-1-204248 pos-abs" id="id-I1224136_8218">
-              <span className="gallery-1-204248-0">{"Gallery"}</span>
+              <span className="gallery-1-204248-0">{"Website URL"}</span>
             </div>
             <div className="team-1-42096 pos-abs" id="id-I1224136_8219">
-              <span className="team-1-42096-0">{"Team"}</span>
+              <span className="team-1-42096-0">{"Calender"}</span>
             </div>
           </div>
         </div>
         <div className="arrows-1-210330-container pos-abs" id="id-1224165">
           <div className="arrows-1-769934 pos-abs" id="id-1224165">
-            <div className="polygon-1-1-519498 pos-abs" id="id-I1224165_8187">
+            <div className="pos-abs" id="id-I1224165_8187">
               <div
                 className="nodeBg-I1224165_8187 pos-abs pos-init fill-parent bg-contain bg-no-repeat image-div"
                 id="id-bg-I1224165_8187"

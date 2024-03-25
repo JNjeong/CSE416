@@ -359,7 +359,7 @@
   /* stonybrook logo */
   .stonybrooklogo {
     width: 9.5%;
-    height: 10%;
+    height: 9.5%;
     top: 0%;
     left: 0%;
     opacity: 1;
@@ -410,13 +410,14 @@
   }
   
   .menu-1-277764-container {
-    width: 28.13%;
+    width: 33.13%;
     height: 2.87%;
     top: 5.28%;
-    left: 35.97%;
+    left: 33.97%;
     opacity: 1;
     z-index: 2;
     transform: rotate(0deg);
+    white-space: nowrap;
   }
   @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
   .menu-1-797424 {
@@ -455,7 +456,7 @@
     width: 15.31%;
     height: 100%;
     top: 0%;
-    left: 20.49%;
+    left: 17.8%;
     opacity: 1;
     z-index: 1;
     transform: rotate(0deg);
@@ -561,6 +562,7 @@
     z-index: 1;
     transform: rotate(0deg);
   }
+  /* menu triangle */
   .nodeBg-I1224165_8187 {
     opacity: 1;
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAECAYAAAC3OK7NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABBSURBVHgBdcxRCQAgDATQ2cAIVrSBEWygDYxiBG2iJyqMsR28jx3HHN0UCKRnQvzHGQ1YQtceeGhsVF9nJkGW5QZUDAx5wTrDYQAAAABJRU5ErkJggg==);
