@@ -573,12 +573,12 @@
   /* menu triangle */
   .nodeBg-I1224165_8187 {
     opacity: 1;
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAECAYAAAC3OK7NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABBSURBVHgBdcxRCQAgDATQ2cAIVrSBEWygDYxiBG2iJyqMsR28jx3HHN0UCKRnQvzHGQ1YQtceeGhsVF9nJkGW5QZUDAx5wTrDYQAAAABJRU5ErkJggg==);
+    background-image: url(data:image/pnag;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAECAYAAAC3OK7NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABBSURBVHgBdcxRCQAgDATQ2cAIVrSBEWygDYxiBG2iJyqMsR28jx3HHN0UCKRnQvzHGQ1YQtceeGhsVF9nJkGW5QZUDAx5wTrDYQAAAABJRU5ErkJggg==);
   }
   .polygon-1-1-519498 {
     width: 86.6%;
     height: 75%;
-    top: 25%;
+    top: 75%;
     left: 6.7%;
     opacity: 1;
     z-index: 0;
@@ -586,4 +586,17 @@
     overflow: hidden;
   }
 
-  
+  .footer-container {
+    width: 100%;
+    position: fixed;  
+    left: 0;
+    bottom: 0;
+    z-index: 1000; 
+    height: 25%;
+  }
+
+.footer {
+    width: 50%; 
+    /* height: 1%;  */
+    height: 100%;
+}

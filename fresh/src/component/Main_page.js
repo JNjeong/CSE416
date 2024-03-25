@@ -1,6 +1,7 @@
 import "../css/main_page_style.css";
 // import "../css/animation.css";
 import stonybrook_logo from '../image/stonybrook_logo.png';
+import footerImage from '../image/footer_img.png';
 import runAnimations, { allLinks, allFunctions } from "../js/main_page_script";
 import React, { useEffect } from 'react';
 const Main_page = () => {
@@ -125,7 +126,13 @@ const Main_page = () => {
           </div>
         </div>
       </div>
+      // footer
+    <div className="footer-container">
+        <img src={footerImage} className="footer" />
     </div>
+  
+    </div>
+    
   );
 };
 
