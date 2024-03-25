@@ -23,12 +23,12 @@ const Main_page = () => {
         </div>
         <div className="next-generation-1-24674 pos-abs" id="id-1224140">
           <span className="next-generation-1-24674-0">
-            {"Next generation "}&nbsp;{""} <br /> {" website builder"}
+            {"Welcome to "}&nbsp;{""} <br /> {"SUNY, KOREA!"}
           </span>
         </div>
         <div className="greate-websites-1-12492 pos-abs" id="id-1224141">
           <span className="greate-websites-1-12492-0">
-            {"Greate websites with new technology — not with the old one"}
+            {"hello hello hello hello hello hello"}
           </span>
         </div>
         <div className="buttonlogin-1-3176-container pos-abs" id="id-1224137">

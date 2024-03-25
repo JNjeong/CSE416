@@ -3,9 +3,9 @@
   They're active for 10-15 days only. You should replace them with the actual images before using the code in production.
 */
 :root {
-    --image-0: url("../image/image0.png");
-    --custom-width: min(1440px, 100vw);
-    --design-width: 1440;
+    --image-0: url("../image/main_page_suny.png");
+    --custom-width: min(1900px, 100vw);
+    --design-width: 1900;
     --ratio: calc(var(--custom-width) / var(--design-width));
   }
   @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -71,6 +71,9 @@
     left: calc(0 * var(--ratio));
     top: calc(-135.38939011696613 * var(--ratio));
     background-image: var(--image-0);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
     opacity: 1;
   }
   .image-151-1-88230 {
@@ -359,7 +362,7 @@
   /* stonybrook logo */
   .stonybrooklogo {
     width: 9.5%;
-    height: 9.5%;
+    height: 8.5%;
     top: 0%;
     left: 0%;
     opacity: 1;
