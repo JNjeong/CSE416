@@ -1,0 +1,602 @@
+/*
+  Note: These are temporary previews of the images. 
+  They're active for 10-15 days only. You should replace them with the actual images before using the code in production.
+*/
+:root {
+    --image-0: url("../image/main_page_suny.png");
+    --custom-width: min(1900px, 100vw);
+    --design-width: 1900;
+    --ratio: calc(var(--custom-width) / var(--design-width));
+  }
+  @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+  /* Default classes */
+  .pos-abs {
+    position: absolute;
+  }
+  .fill-parent {
+    width: 100%;
+    height: 100%;
+  }
+  .bg-contain {
+    background-size: contain;
+  }
+  .bg-cover {
+    background-size: cover;
+  }
+  .bg-auto {
+    background-size: auto;
+  }
+  .bg-crop {
+    background-size: 100% 100%;
+  }
+  .bg-no-repeat {
+    background-repeat: no-repeat;
+  }
+  .pos-init {
+    top: 0px;
+    left: 0px;
+  }
+  .image-div {
+    background-color: transparent;
+    background-position: center;
+  }
+  /* Default classes end */
+  body {
+    margin: 0px;
+    padding: 0px;
+  }
+  .parent-div {
+    position: relative;
+    width: var(--custom-width);
+    height: calc(0.46 * var(--custom-width));
+    overflow: hidden;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+  .header-87-1-307200 {
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+    opacity: 1;
+    z-index: 1;
+    transform: rotate(0deg);
+    overflow: hidden;
+    background: #ffffffff;
+  }
+  .nodeBg-1224163 {
+    /* width: calc(867.0000168318338 * var(--ratio));
+    height: calc(791.767408626597 * var(--ratio)); */
+    width: 100%;
+    height: 100%;
+    left: calc(0 * var(--ratio));
+    right: calc(0 * var(--ratio));
+    /* top: calc(-50.38939011696613 * var(--ratio)); */
+    top: calc(0 * var(--ratio));
+
+    background-image: var(--image-0);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    opacity: 1;
+  }
+  .image-151-1-88230 {
+    width: 57.5%;
+    height: 79.34%;
+    top: 20.66%;
+    left: 42.5%;
+    opacity: 1;
+    z-index: 0;
+    transform: rotate(0deg);
+    overflow: hidden;
+  }
+  .next-generation-1-24674 {
+    width: 40.76%;
+    height: 25.34%;
+    top: 33.79%;
+    left: 8.13%;
+    opacity: 1;
+    z-index: 7;
+    transform: rotate(0deg);
+    text-align: left;
+    line-height: 0px;
+  }
+  .next-generation-1-24674-0 {
+    font-size: calc(71 * var(--ratio));
+    font-family: Roboto;
+    font-weight: 700;
+  
+    text-decoration: none;
+    text-transform: none;
+  
+    line-height: calc(72 * var(--ratio));
+    color: #37383cff;
+  }
+  
+  .greate-websites-1-12492 {
+    width: 36.53%;
+    height: 7.84%;
+    top: 63.95%;
+    left: 8.13%;
+    opacity: 1;
+    z-index: 8;
+    transform: rotate(0deg);
+    text-align: left;
+    line-height: 0px;
+  }
+  .greate-websites-1-12492-0 {
+    font-size: calc(21 * var(--ratio));
+    font-family: Roboto;
+    font-weight: 400;
+  
+    text-decoration: none;
+    text-transform: none;
+  
+    line-height: calc(22 * var(--ratio));
+    color: #7b7e86ff;
+  }
+  
+  .buttonlogin-1-3176-container {
+    width: 6.94%;
+    height: 6.03%;
+    top: 3.62%;
+    left: 84.93%;
+    opacity: 1;
+    z-index: 3;
+    transform: rotate(0deg);
+    border-radius: 50px 50px 50px 50px;
+  }
+  @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+  .buttonlogin-1-289083 {
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+    opacity: 1;
+    z-index: 1;
+    transform: rotate(0deg);
+    border-radius: 50px 50px 50px 50px;
+  }
+  .log-in-1-749427 {
+    width: 40%;
+    height: 47.5%;
+    top: 26.25%;
+    left: 30%;
+    opacity: 1;
+    z-index: 0;
+    transform: rotate(0deg);
+    text-align: center;
+    line-height: 0px;
+  }
+  .log-in-1-749427-0 {
+    font-size: calc(17 * var(--ratio));
+    font-family: Roboto;
+    font-weight: 400;
+  
+    text-decoration: none;
+    text-transform: none;
+  
+    line-height: calc(16 * var(--ratio));
+    color: rgb(173, 64, 62);
+  }
+  
+  .buttonlogin-2-145905-container {
+    width: 6.94%;
+    height: 6.03%;
+    top: 3.62%;
+    left: 76.88%;
+    opacity: 1;
+    z-index: 4;
+    transform: rotate(0deg);
+    border-radius: 50px 50px 50px 50px;
+    background: linear-gradient(90deg, #36d1dcff 0%, #5b86e5ff 100%);
+  }
+
+  @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+  .buttonlogin-1-501120 {
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+    opacity: 1;
+    z-index: 1;
+    transform: rotate(0deg);
+    border-radius: 50px 50px 50px 50px;
+    background: linear-gradient(90deg, rgb(173, 64, 62) 0%, rgb(154, 1, 0) 100%);
+  }
+  .log-in-1-153333 {
+    width: 55%;
+    height: 47.5%;
+    top: 26.25%;
+    left: 22.5%;
+    opacity: 1;
+    z-index: 0;
+    transform: rotate(0deg);
+    text-align: center;
+    line-height: 0px;
+  }
+  .log-in-1-153333-0 {
+    font-size: calc(16 * var(--ratio));
+    font-family: Roboto;
+    font-weight: 400;
+  
+    text-decoration: none;
+    text-transform: none;
+  
+    line-height: calc(16 * var(--ratio));
+    color: #ffffffff;
+  }
+  
+  .buttonstarted-1-217360-container {
+    width: 17.36%;
+    height: 7.54%;
+    top: 76.92%;
+    left: 8.13%;
+    opacity: 1;
+    z-index: 5;
+    transform: rotate(0deg);
+    border-radius: 50px 50px 50px 50px;
+    background: linear-gradient(90deg, #36d1dcff 0%, #5b86e5ff 100%);
+  }
+  @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+  .buttonstarted-1-82622 {
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+    opacity: 1;
+    z-index: 1;
+    transform: rotate(0deg);
+    border-radius: 50px 50px 50px 50px;
+    background: linear-gradient(90deg, #36d1dcff 0%, #5b86e5ff 100%);
+  }
+  .get-started-1-18456 {
+    width: 54.4%;
+    height: 38%;
+    top: 31%;
+    left: 22.8%;
+    opacity: 1;
+    z-index: 0;
+    transform: rotate(0deg);
+    text-align: center;
+    line-height: 0px;
+  }
+  .get-started-1-18456-0 {
+    font-size: calc(15 * var(--ratio));
+    font-family: Roboto;
+    font-weight: 400;
+  
+    text-decoration: none;
+    text-transform: none;
+  
+    line-height: calc(16 * var(--ratio));
+    color: #ffffffff;
+  }
+  
+  .buttonstarted-2-155946-container {
+    width: 17.36%;
+    height: 7.54%;
+    top: 76.92%;
+    left: 26.11%;
+    opacity: 1;
+    z-index: 6;
+    transform: rotate(0deg);
+    border-radius: 50px 50px 50px 50px;
+  }
+  @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+  .buttonstarted-1-386400 {
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+    opacity: 1;
+    z-index: 1;
+    transform: rotate(0deg);
+    border-radius: 50px 50px 50px 50px;
+  }
+  .get-started-1-43152 {
+    width: 75.6%;
+    height: 38%;
+    top: 31%;
+    left: 12.2%;
+    opacity: 1;
+    z-index: 0;
+    transform: rotate(0deg);
+    text-align: center;
+    line-height: 0px;
+  }
+  .get-started-1-43152-0 {
+    font-size: calc(15 * var(--ratio));
+    font-family: Roboto;
+    font-weight: 400;
+  
+    text-decoration: none;
+    text-transform: uppercase;
+  
+    line-height: calc(16 * var(--ratio));
+    color: #007affff;
+  }
+  
+  .sitelogo-1-187248-container {
+    width: 8.06%;
+    height: 3.92%;
+    top: 4.68%;
+    left: 8.13%;
+    opacity: 1;
+    z-index: 1;
+    transform: rotate(0deg);
+  }
+  @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+  .sitelogo-1-472059 {
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+    opacity: 1;
+    z-index: 1;
+    transform: rotate(0deg);
+  }
+  .line-3-1-480216 {
+    width: 17.24%;
+    height: 0%;
+    top: 50%;
+    left: -8.62%;
+    opacity: 1;
+    z-index: 0;
+    transform: rotate(0deg);
+  }
+  .line-4-1-120495 {
+    width: 13.79%;
+    height: 0%;
+    top: 50%;
+    left: 1.72%;
+    opacity: 1;
+    z-index: 1;
+    transform: rotate(0deg);
+  }
+  .line-5-1-140094 {
+    width: 10.34%;
+    height: 0%;
+    top: 50%;
+    left: 12.07%;
+    opacity: 1;
+    z-index: 2;
+    transform: rotate(0deg);
+  }
+  /* stonybrook logo */
+  .stonybrooklogo {
+    width: 9.5%;
+    height: 8.5%;
+    top: 0%;
+    left: 0%;
+    opacity: 1;
+    z-index: 3;
+    transform: rotate(0deg);
+  }
+  /* stonybrook logo size */
+  .logo-size {
+    padding-top: 5%;
+    padding-left: 5%;
+    width: 95%;
+    height: 100%;
+  }
+
+  .sitelogo-1-204350 {
+    width: 74.14%;
+    height: 100%;
+    top: 0%;
+    left: 27.86%;
+    opacity: 1;
+    z-index: 3;
+    transform: rotate(0deg);
+    text-align: left;
+    line-height: 0px;
+  }
+  .sitelogo-1-204350-0 {
+    font-size: calc(21 * var(--ratio));
+    font-family: Roboto;
+    font-weight: 300;
+  
+    text-decoration: none;
+    text-transform: none;
+  
+    line-height: calc(22 * var(--ratio));
+    color: #000000ff;
+  }
+  
+  .sitelogo-1-204350-1 {
+    font-size: calc(21 * var(--ratio));
+    font-family: Roboto;
+    font-weight: 500;
+  
+    text-decoration: none;
+    text-transform: none;
+  
+    line-height: calc(22 * var(--ratio));
+    color: #000000ff;
+  }
+  
+  .menu-1-277764-container {
+    width: 33.13%;
+    height: 2.87%;
+    top: 5.28%;
+    left: 33.97%;
+    opacity: 1;
+    z-index: 2;
+    transform: rotate(0deg);
+    white-space: nowrap;
+  }
+  @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+  .menu-1-797424 {
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+    opacity: 1;
+    z-index: 1;
+    transform: rotate(0deg);
+  }
+  .about-1-51192 {
+    width: 10.62%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+    opacity: 1;
+    z-index: 0;
+    transform: rotate(0deg);
+    text-align: left;
+    line-height: 0px;
+  }
+  .about-1-51192-0 {
+    font-size: calc(15 * var(--ratio));
+    font-family: Roboto;
+    font-weight: 400;
+  
+    text-decoration: none;
+    text-transform: none;
+  
+    line-height: calc(16 * var(--ratio));
+    color: #000000ff;
+  }
+  
+  .features-1-10700 {
+    width: 15.31%;
+    height: 100%;
+    top: 0%;
+    left: 17.8%;
+    opacity: 1;
+    z-index: 1;
+    transform: rotate(0deg);
+    text-align: left;
+    line-height: 0px;
+  }
+  .features-1-10700-0 {
+    font-size: calc(15 * var(--ratio));
+    font-family: Roboto;
+    font-weight: 400;
+  
+    text-decoration: none;
+    text-transform: none;
+  
+    line-height: calc(16 * var(--ratio));
+    color: #000000ff;
+  }
+  
+  .pricing-1-267960 {
+    width: 12.35%;
+    height: 100%;
+    top: 0%;
+    left: 45.68%;
+    opacity: 1;
+    z-index: 2;
+    transform: rotate(0deg);
+    text-align: left;
+    line-height: 0px;
+  }
+  .pricing-1-267960-0 {
+    font-size: calc(15 * var(--ratio));
+    font-family: Roboto;
+    font-weight: 400;
+  
+    text-decoration: none;
+    text-transform: none;
+  
+    line-height: calc(16 * var(--ratio));
+    color: #000000ff;
+  }
+  
+  .gallery-1-204248 {
+    width: 12.35%;
+    height: 100%;
+    top: 0%;
+    left: 67.9%;
+    opacity: 1;
+    z-index: 3;
+    transform: rotate(0deg);
+    text-align: left;
+    line-height: 0px;
+  }
+  .gallery-1-204248-0 {
+    font-size: calc(15 * var(--ratio));
+    font-family: Roboto;
+    font-weight: 400;
+  
+    text-decoration: none;
+    text-transform: none;
+  
+    line-height: calc(16 * var(--ratio));
+    color: #000000ff;
+  }
+  
+  .team-1-42096 {
+    width: 9.88%;
+    height: 100%;
+    top: 0%;
+    left: 90.12%;
+    opacity: 1;
+    z-index: 4;
+    transform: rotate(0deg);
+    text-align: left;
+    line-height: 0px;
+  }
+  .team-1-42096-0 {
+    font-size: calc(15 * var(--ratio));
+    font-family: Roboto;
+    font-weight: 400;
+  
+    text-decoration: none;
+    text-transform: none;
+  
+    line-height: calc(16 * var(--ratio));
+    color: #000000ff;
+  }
+  
+  .arrows-1-210330-container {
+    width: 0.69%;
+    height: 0.75%;
+    top: 6.33%;
+    left: 58.82%;
+    opacity: 1;
+    z-index: 9;
+    transform: rotate(0deg);
+  }
+  .arrows-1-769934 {
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+    opacity: 1;
+    z-index: 1;
+    transform: rotate(0deg);
+  }
+  /* menu triangle */
+  .nodeBg-I1224165_8187 {
+    opacity: 1;
+    background-image: url(data:image/pnag;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAECAYAAAC3OK7NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABBSURBVHgBdcxRCQAgDATQ2cAIVrSBEWygDYxiBG2iJyqMsR28jx3HHN0UCKRnQvzHGQ1YQtceeGhsVF9nJkGW5QZUDAx5wTrDYQAAAABJRU5ErkJggg==);
+  }
+  .polygon-1-1-519498 {
+    width: 86.6%;
+    height: 75%;
+    top: 75%;
+    left: 6.7%;
+    opacity: 1;
+    z-index: 0;
+    transform: rotate(0deg);
+    overflow: hidden;
+  }
+
+  .footer-container {
+    width: 100%;
+    position: fixed;  
+    left: 0;
+    bottom: 0;
+    z-index: 1000; 
+    height: 25%;
+  }
+
+.footer {
+    width: 50%; 
+    /* height: 1%;  */
+    height: 100%;
+}
