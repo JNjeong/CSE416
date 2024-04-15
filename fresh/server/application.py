@@ -1,7 +1,24 @@
 from flask import Flask, jsonify, request
 import requests, sys, json
 import random
+import pymysql
+
 application = Flask(__name__)
+
+
+# PIP INSTALL PYMYSQL
+db = pymysql.connect(shot='127.0.0.1', user='root', password='0000', db='cse416', charset='utf8')
+
+cursor = db.cursor()
+sql = 'select * from users'
+
+cursor.excute(sql)
+
+cursor.fetchall()
+cursor.fetchone()
+cursor.fetchmany(n)
+db.commit()
+db.close()
 
 @application.route("/random", methods=["POST"])
 def random_function():

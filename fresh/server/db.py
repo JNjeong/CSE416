@@ -1,6 +1,9 @@
 import pymysql
 
-db = pymysql.connect(shot='127.0.0.1', user='root', password='0000', db='cse416', charset='utf8')
+# PIP INSTALL PYMYSQL
+
+
+db = pymysql.connect(host='127.0.0.1', user='root', password='0000', db='cse416', charset='utf8')
 
 cursor = db.cursor()
 
