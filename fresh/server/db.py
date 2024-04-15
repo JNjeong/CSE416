@@ -3,18 +3,21 @@ import pymysql
 # PIP INSTALL PYMYSQL
 
 
-db = pymysql.connect(host='127.0.0.1', user='root', password='0000', db='cse416', charset='utf8')
+db = pymysql.connect(host='127.0.0.1', user='root', password='0000', db='mysql', charset='utf8')
 
 cursor = db.cursor()
 
-sql = 'select * from users'
+sql1 = 'show tables'
+sql2 = 'select * from tb_user'
 
-cursor.excute(sql)
+cursor.execute(sql2)
 
-cursor.fetchall()
-cursor.fetchone()
-cursor.fetchmany(n)
+result = cursor.fetchall()
+print('result : ', result )
+#cursor.fetchone()
+#cursor.fetchmany(n)
 
 db.commit()
 
 db.close()
+
