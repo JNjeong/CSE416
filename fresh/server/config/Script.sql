@@ -1,5 +1,5 @@
 CREATE TABLE tb_user (
-	user_code INT primary key,
+	user_code INT PRIMARY KEY AUTO_INCREMENT ,
 	user_studid INT NOT NULL UNIQUE,
 	user_name VARCHAR(30) NOT NULL,
 	user_id VARCHAR(30) NOT NULL UNIQUE,
@@ -33,9 +33,12 @@ CREATE TABLE tb_course (
 	course_fullname VARCHAR(100) NOT NULL,
 	course_credit INT NOT NULL,
 	course_coordinator VARCHAR(30),
-	course_requirement VARCHAR(200),
-	course_sbc VARCHAR(30),
 	course_info VARCHAR(100),
+	course_requirement VARCHAR(200),
+	course_outcome VARCHAR(300),
+	course_sbc VARCHAR(30),
+	
+	
 	CONSTRAINT FOREIGN KEY (course_code) REFERENCES tb_course_schedule(course_code)
 );
 
@@ -53,7 +56,7 @@ CREATE TABLE tb_prof (
 	prof_star_cnt INT DEFAULT 0
 );
 
-CREATE TABLE tb_prf_comment (
+CREATE TABLE tb_prof_comment (
 	prof_code INT,
 	course_code INT,
 	user_code INT,
@@ -63,18 +66,24 @@ CREATE TABLE tb_prf_comment (
 	CONSTRAINT FOREIGN KEY (user_code) REFERENCES tb_user(user_code)
 );
 
-CREATE TABLE tb_calendar (
-	user_code INT,
-	spring_cal TEXT, 
-	summer_cal TEXT,
-	fall_cal TEXT,
-	winter_cal TEXT,
-	CONSTRAINT FOREIGN KEY (user_code) REFERENCES tb_user(user_code)
-);
-
 CREATE TABLE tb_board (
 	board_code INT PRIMARY KEY,
 	board_title VARCHAR(200) NOT NULL,
 	board_content TEXT,
 	board_type VARCHAR(30)
 );
+
+CREATE TABLE tb_qa (
+	qa_code INT PRIMARY KEY,
+	qa_keyword VARCHAR(50) NOT NULL,
+	qa_answer VARCHAR(200),
+);
+
+CREATE TABLE tb_qgpt(
+	qpgt_code INT PRIMARY KEY,
+	qpgt_keyword VARCHAR(50) NOT NULL,
+	qpgt_question VARCHAR(300)
+); 
+
+select * from tb_user;
+insert into tb_user ()
