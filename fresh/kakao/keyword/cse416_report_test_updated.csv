@@ -1,0 +1,7 @@
+block_name,commend,user_num,api usage,Phrases
+office,Where is professor Jihoon's office?,1,1,professor Jihoon's office
+office,where is jihoon's office?,1,1,jihoon's office
+office,Professor Jihoon Ryoo's office,1,1,Professor Jihoon Ryoo's office
+office,류지훈 교수님 사무실,1,1,"['류지훈', '교수', '사무실']"
+office,류지훈 교수님 사무실 어디인가요,1,1,"['류지훈', '교수', '사무실']"
+office,류지훈 교수님 사무실 어디?,1,1,"['류지훈', '교수', '사무실']"
