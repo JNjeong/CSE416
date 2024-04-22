@@ -1,8 +1,6 @@
 from flask import Flask, jsonify, request
 import requests, sys, json
 import random
-import pymysql
-
 application = Flask(__name__)
 
 @application.route("/random", methods=["POST"])
@@ -22,24 +20,21 @@ def random_function():
     return jsonify(response)
 
 @application.route("/jihoon", methods=["POST"])
+
+
 def professor_information():
-    db = pymysql.connect(host='127.0.0.1', user='root', password='0000', db='mysql', charset='utf8')
-    cursor = db.cursor()
-    result = cursor.execute("select * from tb_prof where prof_name = 'Jihoon Ryoo'")
     response = {
         "version": "2.0",
         "template": {
             "outputs": [
                 {
                     "simpleText": {
-                        "text": result
+                        "text": "Prof. Jihoon Ryoo,\nemail : jihoon.ryoo@sunykorea.ac.kr,\nOffice : C413,\nOffice hours: Tuesday/Thursday 2:00 - 3 PM or by appointment if necessary"
                     }
                 }
             ]
         }
     }
-    db.commit()
-    db.close()
     return jsonify(response)
 
 @application.route("/menu", methods=["POST"])
@@ -113,9 +108,6 @@ def welcomeblock():
 
 @application.route("/CSE114", methods=["POST"])
 def course_information():
-    db = pymysql.connect(host='127.0.0.1', user='root', password='0000', db='mysql', charset='utf8')
-    cursor = db.cursor()
-    result = cursor.execute("select * from tb_prof where course_name = 'cse114'")
     response = {
         "version": "2.0",
         "template": {
@@ -148,8 +140,6 @@ def course_information():
             ]
         }
     }
-    db.commit()
-    db.close()
     return jsonify(response)
 
 

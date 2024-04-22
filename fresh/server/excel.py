@@ -8,24 +8,15 @@
 import pandas as pd
 import sys
 import pymysql
-import math 
 
-def checkNaN(element):
-    return 'N/A' if math.isnan(element) else element
-
-
-def db_save (field, dataset):
+def db_save (field, datasets):
     sql_insert_courses="""insert into tb_course (course_name, course_fullname, course_credit, course_coordinator, course_info, course_prereq, course_outcome, course_requirement, course_sbc) values (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
     sql_insert_prof = """insert into tb_prof (prof_name, prof_office, prof_contact, prof_email) values (%s,%s,%s,%s)"""
 
-    if field == 'all':
-        print('arg = all')
-        for elem in [df_CSE, df_ESE, df_EST, df_MEC, df_BM, df_AMS, df_prof]:
-            print('all')
-            
-    elif field == 'cse':
-        for i in range(len(dataset[0])):
-            course_elem = dataset[0].loc[i]
+      
+    if field == 'cse':
+        for i in range(len(datasets[0])):
+            course_elem = datasets[0].loc[i]
             cursor.execute(sql_insert_courses, 
                            (
                                 str(course_elem['course_name']).split('\n')[0],
@@ -42,8 +33,8 @@ def db_save (field, dataset):
         
 
     elif field == 'ese':
-        for i in range(len(dataset[1])):
-            course_elem = dataset[1].loc[i]
+        for i in range(len(datasets[1])):
+            course_elem = datasets[1].loc[i]
             cursor.execute(sql_insert_courses, 
                            (
                                 str(course_elem['course_name']).split('\n')[0],
@@ -60,8 +51,8 @@ def db_save (field, dataset):
         
         
     elif field == 'est':
-        for i in range(len(dataset[2])):
-            course_elem = dataset[2].loc[i]
+        for i in range(len(datasets[2])):
+            course_elem = datasets[2].loc[i]
             cursor.execute(sql_insert_courses, 
                            (
                                 str(course_elem['course_name']).split('\n')[0],
@@ -78,8 +69,8 @@ def db_save (field, dataset):
         
 
     elif field == 'mec':
-        for i in range(len(dataset[3])):
-            course_elem = dataset[3].loc[i]
+        for i in range(len(datasets[3])):
+            course_elem = datasets[3].loc[i]
             cursor.execute(sql_insert_courses, 
                            (
                                 str(course_elem['course_name']).split('\n')[0],
@@ -96,8 +87,8 @@ def db_save (field, dataset):
         
 
     elif field == 'bm':
-        for i in range(len(dataset[4])):
-            course_elem = dataset[4].loc[i]
+        for i in range(len(datasets[4])):
+            course_elem = datasets[4].loc[i]
             cursor.execute(sql_insert_courses, 
                            (
                                 str(course_elem['course_name']).split('\n')[0],
@@ -114,8 +105,8 @@ def db_save (field, dataset):
         
         
     elif field == 'ams':
-        for i in range(len(dataset[5])):
-            course_elem = dataset[5].loc[i]
+        for i in range(len(datasets[5])):
+            course_elem = datasets[5].loc[i]
             cursor.execute(sql_insert_courses, 
                            (
                                 str(course_elem['course_name']).split('\n')[0],
@@ -132,8 +123,8 @@ def db_save (field, dataset):
         
         
     elif field == 'prof':
-        for i in range (len(dataset[6])):        
-            prof_elem = dataset[6].loc[i]
+        for i in range (len(datasets[6])):        
+            prof_elem = datasets[6].loc[i]
             cursor.execute(sql_insert_prof,
                         (str(prof_elem['prof_name']).split('\n')[0],
                             str(prof_elem['prof_office']).split('\n')[0],
@@ -167,8 +158,19 @@ if __name__ == "__main__":
 
 
     args = sys.argv
-    if len(args) <= 1 :
-        print('args = 0 ')
+    if len(args) < 2 :
+        sql_course="select * from tb_course where course_name='cse114'"
+        cursor.execute(sql_course)
+        result_course = cursor.fetchall()
+        #print('result_course : ', result_course)
+        sql_prof="select * from tb_prof where prof_name='Jihoon Ryoo'"
+        cursor.execute(sql_prof)
+        result_prof = cursor.fetchall()
+        result_prof = str(result_prof)
+        result_prof = result_prof.replace('((', '')
+        result_prof = result_prof.replace('))', '')
+        result_prof.split(', ')
+        print('result_prof : ', result_prof)
         # db saves all
     
     elif len(args) == 2 : 
@@ -176,6 +178,7 @@ if __name__ == "__main__":
         #cursor.execute('select * from tb_test;')
         #result = cursor.fetchall()
         #print(result)
+
 
     db.commit()
     db.close()
