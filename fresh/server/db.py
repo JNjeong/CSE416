@@ -13,7 +13,7 @@ sql2 = 'select * from tb_user'
 cursor.execute(sql2)
 
 result = cursor.fetchall()
-print('result : ', result )
+print('result : ', result)
 #cursor.fetchone()
 #cursor.fetchmany(n)
 
