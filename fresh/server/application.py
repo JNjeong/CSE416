@@ -1,7 +1,117 @@
 from flask import Flask, jsonify, request
-import requests, sys, json
-import random
+from bs4 import BeautifulSoup
+import requests, sys, json, random, re
+
 application = Flask(__name__)
+
+@application.route('/menu', methods=["POST"])
+def index():
+    req = request.get_json()
+    params = req['action']['detailParams']
+
+    if 'sys_date' not in params and 'sys_number' not in params.keys():
+        response = {
+            "version": "2.0",
+            "template": {
+                "outputs": [
+                    {
+                        "simpleText": {
+                            "text": "잘못입력함"
+                        }
+                    }
+                ]
+            }
+        }
+        
+    elif 'sys_number' in params.keys():
+        url = "https://housing.igc.or.kr/about/cafeteria_menu.do?c_date=2024-"
+        month = params['sys_number']['origin'][:2]
+        day = params['sys_number']['origin'][-2:]
+        url = url + month +"-"+ day
+
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+    
+        dl_elements = []
+        list_wrap_divs = soup.find_all('div', class_='list_wrap')
+    
+        for list_wrap_div in list_wrap_divs:
+            dl_elements += list_wrap_div.find_all('dl')
+        dl_strings = []
+        for dl in dl_elements:
+            dt_dd_pairs = dl.find_all(['dt', 'dd'])
+            dt_dd_strings = []
+            for i in range(0, len(dt_dd_pairs), 2):
+                dt_text = dt_dd_pairs[i].get_text(strip=True)
+                dd_text = dt_dd_pairs[i+1].get_text(strip=True)
+                dt_dd_strings.append(f'{dt_text}\n{dd_text}')
+            dl_strings.append('\n\n'.join(dt_dd_strings))
+            
+        month = params['sys_number']['origin'][:2]
+        day = params['sys_number']['origin'][-2:]
+        if not dl_strings:
+                dl_strings.append("No Operation on " + month +" "+day)
+            
+        response = {
+            "version": "2.0",
+            "template": {
+                "outputs": [
+                    {
+                        "simpleText": {
+                            "text": '\n'.join(dl_strings)
+                        }
+                    }
+                ]
+            }
+        }
+        
+    
+    else :
+        rkey = ""
+        rvalue = ""
+        for key, value in params.items(): 
+            rkey += key + " " 
+            rvalue += str(value) + " "
+        response = {
+            "version": "2.0",
+            "template": {
+                "outputs": [
+                    {
+                        "simpleText": {
+                            "text": params['sys_date']['origin']
+                        }
+                    }
+                ]
+            }
+        }
+        
+    return jsonify(response)
+
+@application.route("/webhook/", methods=["POST"])
+def webhook():
+    request_data = request.json
+    call_back = requests.post(request_data['callback_url'], json={
+        "version": "2.0", "template": { "outputs": [{
+            "simpleText": {"text": request_data['result']['choices'][0]['message']['content']}
+        }]}})
+    print(call_back.status_code, call_back.json())
+    return 'OK'
+@application.route("/question", methods=["POST"])
+def call_openai_api():
+    user_request = request.json.get('userRequest', {})
+    callback_url = user_request.get('callbackUrl')
+    try:
+        api = requests.post('https://api.asyncia.com/v1/api/request/', json={
+            "apikey": "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",
+            "messages" :[{"role": "user", "content": user_request.get('utterance', '')}],
+            "userdata": [["callback_url", callback_url]]},
+            headers={"apikey":"A0.2462d323-043e-42aa-9a4a-4f7fb19a936c.WqZI2W5x3tDlQj9QeSy--5R5oyb2QrfWKg"}, timeout=2)
+    except requests.exceptions.ReadTimeout:
+        pass    
+    return jsonify({
+      "version" : "2.0",
+      "useCallback" : True
+    })
 
 @application.route("/random", methods=["POST"])
 def random_function():
@@ -20,8 +130,6 @@ def random_function():
     return jsonify(response)
 
 @application.route("/jihoon", methods=["POST"])
-
-
 def professor_information():
     response = {
         "version": "2.0",
@@ -30,22 +138,6 @@ def professor_information():
                 {
                     "simpleText": {
                         "text": "Prof. Jihoon Ryoo,\nemail : jihoon.ryoo@sunykorea.ac.kr,\nOffice : C413,\nOffice hours: Tuesday/Thursday 2:00 - 3 PM or by appointment if necessary"
-                    }
-                }
-            ]
-        }
-    }
-    return jsonify(response)
-
-@application.route("/menu", methods=["POST"])
-def menu_information():
-    response = {
-        "version": "2.0",
-        "template": {
-            "outputs": [
-                {
-                    "simpleText": {
-                        "text": "Lunch(점심)\nPrice : 4,500won\nTime : 11:30~13:30\nFried tofu soup(유부장국)\nKimchi Pilaf(김치필라프)\nChicken Cutlet&mustard(치킨가스&스프)\nGreen Salad&Green grape sauce(그린샐러드/청포도소스)\nYogurt(요구르트)\nKimchi(포기김치)"
                     }
                 }
             ]
@@ -69,12 +161,12 @@ def welcomeblock():
                         "buttons": [
                             {
                                 "action": "message",
-                                "label": "Course Information",
+                                "label": "Course Info",
                                 "messageText": "You can enter the name of the course, the lecture title, or just numbers to check the credits, prerequisites, textbook, major topics, etc. of the corresponding course."
                             },
                             {
                                 "action":  "message",
-                                "label": "Professor Information",
+                                "label": "Professor Info",
                                 "messageText": "You can find out the professor's department, email, office, office hours, etc."
                             },
                             {
@@ -106,6 +198,8 @@ def welcomeblock():
     return jsonify(response)
 
 
+@application.route("/AMS126", methods=["POST"])
+@application.route("/CSE416", methods=["POST"])
 @application.route("/CSE114", methods=["POST"])
 def course_information():
     response = {
