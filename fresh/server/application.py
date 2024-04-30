@@ -25,10 +25,16 @@ def index():
         
     elif 'sys_number' in params.keys():
         url = "https://housing.igc.or.kr/about/cafeteria_menu.do?c_date=2024-"
-        month = params['sys_number']['origin'][:2]
-        day = params['sys_number']['origin'][-2:]
-        url = url + month +"-"+ day
-
+        if 'sys_number1' in params.keys():
+            month = month = params['sys_number']['origin']
+            day = params['sys_number1']['origin']
+            url = url + month +"-"+ day
+        else : 
+            mid = len(params['sys_number']['origin'])//2
+            month = params['sys_number']['origin'][:mid]
+            day = params['sys_number']['origin'][mid:]
+            url = url + month +"-"+ day
+            
         response = requests.get(url)
         soup = BeautifulSoup(response.content, 'html.parser')
     
