@@ -8,6 +8,7 @@
 import pandas as pd
 import sys
 import pymysql
+import math
 
 """
 
@@ -40,16 +41,19 @@ def db_save (field, datasets):
     sql_insert_courses="""insert into tb_course (course_name, course_fullname, course_credit, course_coordinator, course_info, course_prereq, course_outcome, course_requirement, course_sbc) values (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
     sql_insert_prof = """insert into tb_prof (prof_name, prof_office, prof_contact, prof_email) values (%s,%s,%s,%s)"""
     sql_insert_qa = """insert into tb_qa (qa_keyword, aq_answer) values (%s,%s)"""
+    sql_insert_course_semester = """insert into tb_course_schedule (course_code, course_date, course_start, course_end, course_room, course_prof, course_number) values (%s,%s,%s,%s,%s,%s,%s)"""
     sql_select_course = """select * from tb_course where course_name=%s"""
     sql_select_prof = """select * from tb_prof where prof_name=%s"""
     sql_select_qa = """select * from tb_qa where qa_keyword=%s"""
-    sql_update_courses = """update tb_course set course_fullnamy=%s, course_credit=%s, course_coordinator=%s, course_info=%s, course_prereq=%s, course_outcome=%s, course_requirement=%s, course_sbc=%s where course_name=%s"""
+    sql_select_course_code = """select course_code from tb_course where course_name = %s"""
+    sql_update_courses = """update tb_course set course_fullname=%s, course_credit=%s, course_coordinator=%s, course_info=%s, course_prereq=%s, course_outcome=%s, course_requirement=%s, course_sbc=%s where course_name=%s"""
     sql_update_prof = """update tb_prof set prof_office=%s, prof_contact=%s, prof_email=%s where prof_name=%s"""
     sql_update_qa = """update tb_qa set qa_answer=%s where qa_keyword=%s"""
-
+    sql_delete_course_semester = """delete from tb_course_schedule"""
+    
 
     if field == 'allcourse':
-        datasets_courses = datasets[3:len(datasets)-2]
+        datasets_courses = datasets[2:len(datasets)-2]
         for dataset in datasets_courses:
             for i in range(len(dataset)):
                 course_elem = dataset.loc[i]
@@ -57,7 +61,7 @@ def db_save (field, datasets):
                 course_result = cursor.fetchall()
                 course_result = res_convert_to_array(course_result)
 
-                if len(course_result) <= 0:
+                if len(course_result) <= 1:
                     cursor.execute(sql_insert_courses, (
                         str(course_elem['course_name']).split('\n')[0],
                         str(course_elem['course_fullname']).split('\n')[0],
@@ -81,11 +85,41 @@ def db_save (field, datasets):
                         str(course_elem['course_sbc']).split('\n')[0],
                         str(course_elem['course_name']).split('\n')[0]
                     ))
+
     elif field =='course_semester':
-        for dataset in datasets[0]:
-            for i in range(len(dataset[i])):
-                print('')
-                #todo
+        cursor.execute(sql_delete_course_semester)
+        cursor.fetchall()
+        for n in range(len(datasets[0])):
+            dataset = datasets[0][n]
+            for i in range(1, len(dataset)):
+                
+                course_semester_elem = dataset.loc[i]
+                #course_semester_elem.dropna(axis=0)
+
+                if n == 0:
+                    course_name = (str(course_semester_elem[1])+str(course_semester_elem[3]))
+                elif n == 1 or n == 2: 
+                    course_name = (str(course_semester_elem[1])+str(course_semester_elem[4]))
+                elif n == 3 :
+                    course_name = (str(course_semester_elem[1])+str(course_semester_elem[2]))
+                    
+
+                print(i,  course_name.split('.')[0])
+                cursor.execute(sql_select_course_code, (course_name.split('.')[0]))
+                course_semester_code_result = cursor.fetchall()
+                
+
+
+                if len(course_semester_code_result) > 0 :
+                    cursor.execute(sql_insert_course_semester , (
+                        int(course_semester_code_result[0][0]),
+                        str(course_semester_elem[10]),
+                        str(course_semester_elem[11]),
+                        str(course_semester_elem[12]),
+                        str(course_semester_elem[13]),
+                        str(course_semester_elem[14]),
+                        int(course_semester_elem[0])
+                    ))
 
     elif field == 'qa':
         for i in range(len(datasets[1])):
@@ -93,7 +127,7 @@ def db_save (field, datasets):
             cursor.execute(sql_select_qa, (str(qa_elem['keyword']).split('\n')[0]))
             qa_result = cursor.fetchall()
             qa_result = res_convert_to_array(qa_result)
-            if len(qa_result) <= 0:
+            if len(qa_result) <= 1:
                 cursor.execute(sql_insert_qa, (
                     str(qa_elem['keyword']).split('\n')[0],
                     str(qa_elem['answer']).split('\n')[0]
@@ -109,7 +143,7 @@ def db_save (field, datasets):
             cursor.execute(sql_select_prof, (str(prof_elem['prof_name']).split('\n')[0]))
             prof_result = cursor.fetchall()
             prof_result = res_convert_to_array(prof_result)
-            if len(prof_result) <= 0:
+            if len(prof_result) <= 1:
                 cursor.execute(sql_insert_prof,(
                     str(prof_elem['prof_name']).split('\n')[0],
                     str(prof_elem['prof_office']).split('\n')[0],
@@ -125,43 +159,43 @@ def db_save (field, datasets):
                 ))
             
     else : 
-        if field == 'cse': dataset = datasets[3]
-        elif field == 'ese': dataset = datasets[4]
-        elif field == 'est': dataset = datasets[5]
-        elif field == 'mec': dataset = datasets[6]
-        elif field == 'bm': dataset = datasets[7]    
-        elif field == 'ams': dataset = datasets[8]
-        elif field == 'car': dataset = dataset[9]
-        elif field == 'chi': dataset = dataset[10]
-        elif field == 'phy': dataset = dataset[11]
-        elif field == 'kor': dataset = dataset[12]
-        elif field == 'mat': dataset = dataset[13]
-        elif field == 'geo': dataset = dataset[14]
-        elif field == 'esg': dataset = dataset[15]
-        elif field == 'pol': dataset = dataset[16]
-        elif field == 'soc': dataset = dataset[17]
-        elif field == 'arh': dataset = dataset[18]
-        elif field == 'his': dataset = dataset[19]
-        elif field == 'phi': dataset = dataset[20]
-        elif field == 'sus': dataset = dataset[21]
-        elif field == 'eco': dataset = dataset[22]
-        elif field == 'com': dataset = dataset[23]
-        elif field == 'atm': dataset = dataset[24]
-        elif field == 'ars': dataset = dataset[25]
-        elif field == 'mus': dataset = dataset[26]
-        elif field == 'spn': dataset = dataset[27]
-        elif field == 'flm': dataset = dataset[28]
-        elif field == 'elp': dataset = dataset[29]
+        if field == 'cse': dataset = datasets[2]
+        elif field == 'ese': dataset = datasets[3]
+        elif field == 'est': dataset = datasets[4]
+        elif field == 'mec': dataset = datasets[5]
+        elif field == 'bm': dataset = datasets[6]    
+        elif field == 'ams': dataset = datasets[7]
+        elif field == 'car': dataset = dataset[8]
+        elif field == 'chi': dataset = dataset[9]
+        elif field == 'phy': dataset = dataset[10]
+        elif field == 'kor': dataset = dataset[11]
+        elif field == 'mat': dataset = dataset[12]
+        elif field == 'geo': dataset = dataset[13]
+        elif field == 'esg': dataset = dataset[14]
+        elif field == 'pol': dataset = dataset[15]
+        elif field == 'soc': dataset = dataset[16]
+        elif field == 'arh': dataset = dataset[17]
+        elif field == 'his': dataset = dataset[18]
+        elif field == 'phi': dataset = dataset[19]
+        elif field == 'sus': dataset = dataset[20]
+        elif field == 'eco': dataset = dataset[21]
+        elif field == 'com': dataset = dataset[22]
+        elif field == 'atm': dataset = dataset[23]
+        elif field == 'ars': dataset = dataset[24]
+        elif field == 'mus': dataset = dataset[25]
+        elif field == 'spn': dataset = dataset[26]
+        elif field == 'flm': dataset = dataset[27]
+        elif field == 'elp': dataset = dataset[28]
 
         
         for i in range(len(dataset)):
             course_elem = dataset.loc[i]
-
+            
             cursor.execute(sql_select_course, (str(course_elem['course_name']).split('\n')[0]))
             course_result=cursor.fetchall()
             course_result = res_convert_to_array(course_result)
-
-            if len(course_result) <= 0:
+            print(course_result)
+            if len(course_result) <= 1:
                 cursor.execute(sql_insert_courses, (
                     str(course_elem['course_name']).split('\n')[0],
                     str(course_elem['course_fullname']).split('\n')[0],
@@ -173,7 +207,6 @@ def db_save (field, datasets):
                     str(course_elem['course_requirement']).split('\n')[0],
                     str(course_elem['course_sbc']).split('\n')[0]
                 ))
-
             else :
                 cursor.execute(sql_update_courses, (
                     str(course_elem['course_fullname']).split('\n')[0],
@@ -250,11 +283,27 @@ if __name__ == "__main__":
         print("Please enter one of following options(allcourse, course_semester, qa, cse, ese, est, mec, bm, ams, car, chi, phy, cor, mat, geo, esg, pol, soc, arh, his, phi, sus, eco, com atm, ars, mus, spn, flm, elp, prof).")
         print("※all course automatically insert or update all courses listed above.")
         '''
-        for i in range(len(df_COURSE_SEMSETER1)):
-            elem = df_COURSE_SEMSETER1.loc[i]
-            if i <= 20:
-                print(i, " ::: ", elem)
-    
+        #for dataset in [df_COURSE_SEMSETER1,df_COURSE_SEMSETER2,df_COURSE_SEMSETER3,df_COURSE_SEMSETER4]:
+        for i in range(len(df_COURSE_SEMSETER3)):
+            elem = df_COURSE_SEMSETER3.loc[i]
+
+            print(i, " ::: ", elem[4])
+            """
+            0 5자리번호
+            1 : 이름
+            3: 이름숫자     4       3       2
+            4 : 풀네임
+            5: SBC
+            9: CREDIT
+            10 : 요일
+            11 : 시작
+            12 : 끝
+            13 : 교실
+            14 : 교수
+            
+            """
+        print('================')
+
     elif len(args) == 2 : 
         db_save(args[1], [df_COURSE_SEMESTERS, df_QA, df_CSE,df_ESE,df_EST,df_MEC,df_BM,df_AMS,df_CAR, df_CHI, df_PHY, df_KOR, df_MAT, df_GEO, df_ESG, df_POL, df_SOC, df_ARH, df_HIS, df_PHI, df_SUS, df_ECO, df_COM, df_ATM, df_ARS, df_MUS, df_SPN, df_FLM, df_ELP, df_prof])
 
