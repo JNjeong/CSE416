@@ -311,10 +311,9 @@ if __name__ == "__main__":
 
     args = sys.argv
     if len(args) < 2 :
-        '''
         print("Please enter one of following options(allcourse, course_semester, qa, cse, ese, est, mec, bm, ams, car, chi, phy, cor, mat, geo, esg, pol, soc, arh, his, phi, sus, eco, com atm, ars, mus, spn, flm, elp, prof).")
         print("※all course automatically insert or update all courses listed above.")
-        '''
+    
 
     elif len(args) == 2 : 
         db_save(args[1], [df_COURSE_SEMESTERS, df_QA, df_CSE,df_ESE,df_EST,df_MEC,df_BM,df_AMS,df_CAR, df_CHI, df_PHY, df_KOR, df_MAT, df_GEO, df_ESG, df_POL, df_SOC, df_ARH, df_HIS, df_PHI, df_SUS, df_ECO, df_COM, df_ATM, df_ARS, df_MUS, df_SPN, df_FLM, df_ELP, df_prof])
