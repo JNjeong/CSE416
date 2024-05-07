@@ -45,7 +45,7 @@ def nan_converter(*args):
 def db_save (field, datasets):
     sql_insert_courses="""insert into tb_course (course_name, course_fullname, course_credit, course_coordinator, course_info, course_prereq, course_outcome, course_requirement, course_sbc) values (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
     sql_insert_prof = """insert into tb_prof (prof_name, prof_office, prof_contact, prof_email) values (%s,%s,%s,%s)"""
-    sql_insert_qa = """insert into tb_qa (qa_keyword, aq_answer) values (%s,%s)"""
+    sql_insert_qa = """insert into tb_qa (qa_keyword, qa_answer) values (%s,%s)"""
     sql_insert_course_semester = """insert into tb_course_schedule (course_code, course_date, course_start, course_end, course_room, course_prof, course_number) values (%s,%s,%s,%s,%s,%s,%s)"""
     sql_insert_temp_courses= """insert into tb_course (course_name, course_fullname, course_credit, course_sbc) values (%s,%s,%s,%s)"""
     sql_select_course = """select * from tb_course where course_name=%s"""
@@ -153,19 +153,21 @@ def db_save (field, datasets):
 
     elif field == 'qa':
         for i in range(len(datasets[1])):
-            qa_elem = datasets[len(datasets[1])].loc[i]
-            cursor.execute(sql_select_qa, (str(qa_elem['keyword']).split('\n')[0]))
+            qa_elem = datasets[1].loc[i]
+            print('@@@@@@@', qa_elem)
+            cursor.execute(sql_select_qa, (str(qa_elem['qa_keyword']).split('\n')[0]))
             qa_result = cursor.fetchall()
             qa_result = res_convert_to_array(qa_result)
+            print('##########', qa_result)
             if len(qa_result) <= 1:
                 cursor.execute(sql_insert_qa, (
-                    str(qa_elem['keyword']).split('\n')[0],
-                    str(qa_elem['answer']).split('\n')[0]
+                    str(qa_elem['qa_keyword']).split('\n')[0],
+                    str(qa_elem['qa_answer']).split('\n')[0]
                 ))
             else :
                 cursor.execute(sql_update_qa,(
-                    str(qa_elem['answer']).split('\n')[0],
-                    str(qa_elem['keyword']).split('\n')[0]
+                    str(qa_elem['qa_answer']).split('\n')[0],
+                    str(qa_elem['qa_keyword']).split('\n')[0]
                 ))
     elif field == 'prof':
         for i in range (len(datasets[len(datasets)-1])):        
