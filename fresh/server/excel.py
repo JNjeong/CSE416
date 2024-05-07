@@ -37,11 +37,17 @@ def res_convert_to_array(ret_db):
     ret_db = ret_db.split(', ')
     return ret_db
 
+def nan_converter(*args):
+    if args == 'nan':
+        return ' '
+    else : return args
+
 def db_save (field, datasets):
     sql_insert_courses="""insert into tb_course (course_name, course_fullname, course_credit, course_coordinator, course_info, course_prereq, course_outcome, course_requirement, course_sbc) values (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
     sql_insert_prof = """insert into tb_prof (prof_name, prof_office, prof_contact, prof_email) values (%s,%s,%s,%s)"""
     sql_insert_qa = """insert into tb_qa (qa_keyword, aq_answer) values (%s,%s)"""
     sql_insert_course_semester = """insert into tb_course_schedule (course_code, course_date, course_start, course_end, course_room, course_prof, course_number) values (%s,%s,%s,%s,%s,%s,%s)"""
+    sql_insert_temp_courses= """insert into tb_course (course_name, course_fullname, course_credit, course_sbc) values (%s,%s,%s,%s)"""
     sql_select_course = """select * from tb_course where course_name=%s"""
     sql_select_prof = """select * from tb_prof where prof_name=%s"""
     sql_select_qa = """select * from tb_qa where qa_keyword=%s"""
@@ -94,7 +100,6 @@ def db_save (field, datasets):
             for i in range(1, len(dataset)):
                 
                 course_semester_elem = dataset.loc[i]
-                #course_semester_elem.dropna(axis=0)
 
                 if n == 0:
                     course_name = (str(course_semester_elem[1])+str(course_semester_elem[3]))
@@ -104,21 +109,50 @@ def db_save (field, datasets):
                     course_name = (str(course_semester_elem[1])+str(course_semester_elem[2]))
                     
 
-                print(i,  course_name.split('.')[0])
+                print(n, i,  course_name.split('.')[0])
                 cursor.execute(sql_select_course_code, (course_name.split('.')[0]))
                 course_semester_code_result = cursor.fetchall()
                 
+                if len(course_semester_code_result) <= 0:
+                    if n==0 : 
+                        cursor.execute(sql_insert_temp_courses, (
+                            nan_converter((str(course_semester_elem[1])+str(course_semester_elem[3]).split('.')[0])),
+                            nan_converter(str(course_semester_elem[4])), 
+                            nan_converter(str(course_semester_elem[9])), 
+                            nan_converter(str(course_semester_elem[5]))
+                            ))
+                    elif n==1:
+                        cursor.execute(sql_insert_temp_courses, (
+                            nan_converter((str(course_semester_elem[1])+str(course_semester_elem[4]).split('.')[0])), 
+                            nan_converter(str(course_semester_elem[5])), 
+                            nan_converter(str(course_semester_elem[9])), 
+                            nan_converter(str(course_semester_elem[6]))
+                            ))
+                    elif n==2:
+                        cursor.execute(sql_insert_temp_courses, (
+                            nan_converter((str(course_semester_elem[1])+str(course_semester_elem[4]).split('.')[0])), 
+                            nan_converter(str(course_semester_elem[5])), 
+                            nan_converter(str(course_semester_elem[9])), 
+                            nan_converter(str(course_semester_elem[6]))
+                            )) 
+                    elif n==3:
+                        cursor.execute(sql_insert_temp_courses, (
+                            nan_converter((str(course_semester_elem[1])+str(course_semester_elem[2]).split('.')[0])), 
+                            nan_converter(str(course_semester_elem[4])), 
+                            nan_converter(str(course_semester_elem[9])), 
+                            nan_converter(str(course_semester_elem[6]))
+                            ))
 
-
-                if len(course_semester_code_result) > 0 :
+                elif len(course_semester_code_result) > 0 :
+                    if str(course_semester_elem[0]) == 'nan' : continue
                     cursor.execute(sql_insert_course_semester , (
-                        int(course_semester_code_result[0][0]),
+                        str(course_semester_code_result[0][0]),
                         str(course_semester_elem[10]),
                         str(course_semester_elem[11]),
                         str(course_semester_elem[12]),
                         str(course_semester_elem[13]),
                         str(course_semester_elem[14]),
-                        int(course_semester_elem[0])
+                        str(course_semester_elem[0])
                     ))
 
     elif field == 'qa':
@@ -284,10 +318,12 @@ if __name__ == "__main__":
         print("※all course automatically insert or update all courses listed above.")
         '''
         #for dataset in [df_COURSE_SEMSETER1,df_COURSE_SEMSETER2,df_COURSE_SEMSETER3,df_COURSE_SEMSETER4]:
-        for i in range(len(df_COURSE_SEMSETER3)):
-            elem = df_COURSE_SEMSETER3.loc[i]
+        for i in range(len(df_COURSE_SEMSETER2)):
+            elem = df_COURSE_SEMSETER2.loc[i]
 
-            print(i, " ::: ", elem[4])
+            print(i, " ::: ", elem[0], elem[1], elem[4], elem[5], elem[6], elem[9])
+            #3 print(i, " ::: ", elem[0], elem[1], elem[4], elem[5], elem[6], elem[9])
+            #4 print(i, " ::: ", elem[0], elem[1], elem[2], elem[4], elem[6], elem[9])
             """
             0 5자리번호
             1 : 이름
