@@ -98,9 +98,7 @@ def db_save (field, datasets):
         for n in range(len(datasets[0])):
             dataset = datasets[0][n]
             for i in range(1, len(dataset)):
-                
                 course_semester_elem = dataset.loc[i]
-
                 if n == 0:
                     course_name = (str(course_semester_elem[1])+str(course_semester_elem[3]))
                 elif n == 1 or n == 2: 
@@ -108,8 +106,6 @@ def db_save (field, datasets):
                 elif n == 3 :
                     course_name = (str(course_semester_elem[1])+str(course_semester_elem[2]))
                     
-
-                print(n, i,  course_name.split('.')[0])
                 cursor.execute(sql_select_course_code, (course_name.split('.')[0]))
                 course_semester_code_result = cursor.fetchall()
                 
@@ -317,28 +313,6 @@ if __name__ == "__main__":
         print("Please enter one of following options(allcourse, course_semester, qa, cse, ese, est, mec, bm, ams, car, chi, phy, cor, mat, geo, esg, pol, soc, arh, his, phi, sus, eco, com atm, ars, mus, spn, flm, elp, prof).")
         print("※all course automatically insert or update all courses listed above.")
         '''
-        #for dataset in [df_COURSE_SEMSETER1,df_COURSE_SEMSETER2,df_COURSE_SEMSETER3,df_COURSE_SEMSETER4]:
-        for i in range(len(df_COURSE_SEMSETER2)):
-            elem = df_COURSE_SEMSETER2.loc[i]
-
-            print(i, " ::: ", elem[0], elem[1], elem[4], elem[5], elem[6], elem[9])
-            #3 print(i, " ::: ", elem[0], elem[1], elem[4], elem[5], elem[6], elem[9])
-            #4 print(i, " ::: ", elem[0], elem[1], elem[2], elem[4], elem[6], elem[9])
-            """
-            0 5자리번호
-            1 : 이름
-            3: 이름숫자     4       3       2
-            4 : 풀네임
-            5: SBC
-            9: CREDIT
-            10 : 요일
-            11 : 시작
-            12 : 끝
-            13 : 교실
-            14 : 교수
-            
-            """
-        print('================')
 
     elif len(args) == 2 : 
         db_save(args[1], [df_COURSE_SEMESTERS, df_QA, df_CSE,df_ESE,df_EST,df_MEC,df_BM,df_AMS,df_CAR, df_CHI, df_PHY, df_KOR, df_MAT, df_GEO, df_ESG, df_POL, df_SOC, df_ARH, df_HIS, df_PHI, df_SUS, df_ECO, df_COM, df_ATM, df_ARS, df_MUS, df_SPN, df_FLM, df_ELP, df_prof])
