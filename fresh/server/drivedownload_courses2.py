@@ -12,6 +12,7 @@ import io
 from googleapiclient.http import MediaIoBaseDownload
 
 #pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+#pip install auth2client
 
 try:
     import argparse
