@@ -2,6 +2,10 @@ from flask import Flask, jsonify, request
 from bs4 import BeautifulSoup
 import requests, sys, json, random, re
 
+import os
+import schedule
+import time
+
 application = Flask(__name__)
 
 @application.route('/menu', methods=["POST"])
@@ -242,6 +246,62 @@ def course_information():
     }
     return jsonify(response)
 
+@application.route("/vrtour", methods=["POST"])
+def vrtour():
+    response = {
+        "version":"2.0",
+        "template" : {
+            "outputs" : [
+                {
+                    "basicCard" : {
+                        "title" : "VR Tour",
+                        "description" : "VISIT : https://www.igc.or.kr/vr/indexe.html"
+                    }
+                }
+            ]
+        }
+       
+    }
+    return jsonify(response)
+
+major_requirements = {
+    "computer science" : "Common Requirement(SBC) : ARTS, GLO, HUM, QPS, SBS, SNW, TECH, USA, WRT, STAS, EXP+, SBS+, STEM+, CER, DIV, ESI, SPK, WRTD\n\nIntroductory(CSE114,CSE214,CSE215,CSE216,CSE220)\nAdvanced(CSE303,CSE310,CSE316,CSE320,CSE373,CSE416\n4 upper-division CSE electives 300 above\nElectives(One of AMS151/AMS161, Both AMS301,AMS310)\nScience(One of BIO201/202/203/204, CHE131/133/152/154, PHY126/127/131/133/141, AST203/205,CHE132/321/322/331/332,GEO102/103/112/113/122,PHY125/132/134/142/251/252))",
+    "applied mathematics and statistics" : "Common Requirement(SBC) : ARTS, GLO, HUM, QPS, SBS, SNW, TECH, USA, WRT, STAS, EXP+, SBS+, STEM+, CER, DIV, ESI, SPK, WRTD\n\nRequired(AMS151/161, AMS210/MAT211, AMS261/MAT203)\nComputing(AMS326,CSE101/114,ESG111)\nUpper Divisions(AMS301, One of AMS310/AMS311, One of AMS315/361/MAT303, 6 AMS courses numbered 301 above)\nUpper Writing(AMS300)",
+    "business management" : "Common Requirement(SBC) : ARTS, GLO, HUM, QPS, SBS, SNW, TECH, USA, WRT, STAS, EXP+, SBS+, STEM+, CER, DIV, ESI, SPK, WRTD\n\nCore(ACC210/214,BUS215/220/301/326/330/346/348/353/446,ECO108, One of MAT112/119/123)\nOne of any Specialization('Accounting':ACC310/311,one of ACC313/314/400/BUS488, 'Finance':four of BUS317/331/332/336/355/356/365/366/376/ECO383/BUS406/488, 'Marketing':BUS358/359/448,one of BUS302/334/335/357/360/362/363/378/449/488, 'Operations Management':BUS340,three of BUS370/371/372/375/393/488)\nUpper Writing(BUS301)",
+    "electrical and computer engineering" : "Common Requirement(SBC) : ARTS, GLO, HUM, QPS, SBS, SNW, TECH, USA, WRT, STAS, EXP+, SBS+, STEM+, CER, DIV, ESI, SPK, WRTD\n\nIntroductory(ESE123/124)\nCore(ESE118/224/271/272/280/305/306/315/319/323/324/331/342)\nOne of any Specialization('Circuits and VSLI':ESE330/411, 3 technical electives, 'Communications, Signal Processing, and Networking':ESE337,one of ESE346/442, 3 technical electives), 'Nanoelectronics and Photonics':ESE332/334,3 technical electives, 'Power and Energy Systems':ESE350/451, 3 technical electives\nDesign(ESE440/441)\nUpper Writing(ESE300)\nEngineering Ethics(ESE301)\nScience(One of BIO201/202/203/204, CHE131/133/152/154, PHY126/127/131/133/141, AST203/205,CHE132/321/322/331/332,GEO102/103/112/113/122,PHY125/132/134/142/251/252)\nMathematics(one of AMS151/161, one of AMS261/MAT203, one of AMS361/MAT303, one of AMS201/MAT211)",
+    "mechanical engineering" : "Common Requirement(SBC) : ARTS, GLO, HUM, QPS, SBS, SNW, TECH, USA, WRT, STAS, EXP+, SBS+, STEM+, CER, DIV, ESI, SPK, WRTD\n\nCore(MEC101/102/203/220/225/260/262/301/305/325/363/364)\nLaboratories(MEC316/317)\nMaterials Science(ESG332)\nEngineering Design(MEC310/320/410/411/422/440/411)\nEngineering Economics(EST392)\nTechnical Electives(3 technical electives)\nUpper Writing(MEC300)\nScience(One of BIO201/202/203/204, CHE131/133/152/154, PHY126/127/131/133/141, AST203/205,CHE132/321/322/331/332,GEO102/103/112/113/122,PHY125/132/134/142/251/252)\nMathematics(one of AMS151/161, one of AMS261/MAT203, one of AMS361/MAT303, one of AMS201/MAT211)",
+    "technology and society" : "Common Requirement(SBC) : ARTS, GLO, HUM, QPS, SBS, SNW, TECH, USA, WRT, STAS, EXP+, SBS+, STEM+, CER, DIV, ESI, SPK, WRTD\n\nCore(EST194/202/304/331/391/392/393/440/441, one of EST240/291/305/325/326/339/342/344/364, one of EST205/207/209/221/310/323/327)\n3 electives(EST100/106/201/205/207/221/240/280/291/305/310/320/323/325/327/339/342/364/475/488/499)\nScience(One of BIO201/202/203/204, CHE131/133/152/154, PHY126/127/131/133/141, AST203/205,CHE132/321/322/331/332,GEO102/103/112/113/122,PHY125/132/134/142/251/252)\nMathematics(one of AMS151/161, one of AMS261/MAT203, one of AMS361/MAT303, one of AMS201/MAT211)",
+                      }
+@application.route("/degreework", methods=["POST"])
+def degreework():
+    request_data = json.loads(request.get_data(), encoding='utf-8')
+    params = request_data['action']['params']
+    param_data = json.loads(params['coursename'])
+    lower_param_data = param_data.lower()
+    response = {
+        "version" : "2.0",
+        "template" : {
+            "outputs" : [
+                {
+                    "simpleText" : {
+                        "text" : major_requirements[lower_param_data]
+                    }
+                }
+            ]
+        }
+    }
+    return jsonify(response)
 
 if __name__ == "__main__":
+
+    schedule.every().day.at("00:00:00").do(os.system, "python drivedownload_coursesem.py")
+    schedule.every().day.at("00:00:00").do(os.system, "python drivedownload_courses.py")
+    schedule.every().day.at("00:00:00").do(os.system, "python drivedownload_courses2.py")
+    schedule.every().day.at("00:00:00").do(os.system, "python drivedownload_professors.py")
+    schedule.every().day.at("00:00:00").do(os.system, "python drivedownload_qa.py")
+    schedule.every().day.at("00:00:00").do(os.system, "python drivedownload_qgpt.py")
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
     application.run(host='0.0.0.0', port=80, debug=True)
